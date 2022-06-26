@@ -7,7 +7,6 @@ Created on Tue Aug 10 17:48:41 2021
 
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt 
 
 
 def creer_coordonnee (image, tab) : 
@@ -45,11 +44,6 @@ def moyenne_lignes_origine (image, lignes) :
     ligne_droite= creer_coordonnee(image,moyenne_ajustement_droit)       
    
     return np.array([ligne_gauche , ligne_droite])
-         
-
-
-
-
 
 
 def canny (img):
@@ -81,45 +75,6 @@ def afficher_lignes (image, lignes):
      
     return traits_image        
 
-
-
-    
-
-        
-
-i=cv2.imread('image-route0.jpg')
-copy_image= np.copy(i)
-
-canny= canny (copy_image)
-image_coupee = region_interet (canny)
-lignes= cv2.HoughLinesP(image_coupee, 2, np.pi/180, 100, np.array([]), minLineLength=40, maxLineGap=5)
-ligne_moyenne= moyenne_lignes_origine(copy_image, lignes)
-traits_image= afficher_lignes (i,ligne_moyenne)  
-trace_image= cv2.addWeighted(copy_image, 0.8, traits_image, 1, 1) 
-        
-#cv2.imshow('traits',trace_image)
-cv2.imshow('traits',ligne_moyenne)
-cv2.waitKey(0)
-
-
-# cap= cv2.VideoCapture('test2.mp4')
-# while (cap.isOpened()) : 
-#     _,frame = cap.read()
-#     canny_image = canny(frame)
-#     interet_image = region_interet(canny_image)
-#     hough_image = cv2.HoughLinesP(interet_image, 2, np.pi/180, 100, np.array([]), minLineLength=40, maxLineGap=5)
-#     moyenne_image = moyenne_lignes_origine(frame, hough_image)
-#     video_image = afficher_lignes(frame, moyenne_image)
-#     video_trace = cv2.addWeighted(frame, 0.8, video_image, 1, 0)
-#     cv2.imshow('le resultat',video_trace)
-    
-#     if cv2.waitKey(1)  & 0xFF == ord('e'):
-#         break 
-    
-# cap.release()
-# cap.destroyAllwindows() 
-
-  
     
         
 
